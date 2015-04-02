@@ -1,0 +1,9 @@
+Now a days, people wanted to keep track of their places where ever they go, willing to share their location with their friends, family and loved ones and wanting
+to navigate again to the place where they have visited a month ago.
+
+With this simple and cool app, you can keep track of your location, save your location to local database and share them with your loved ones.
+This application just requires GPS and active internet connection to work fine and smooth.
+
+Now never worry about how to tell the meeting spot to your mates, just share your location in your WhatsApp group or in mail or what so ever.
+Just a click away to track, locate and share your location.
+
