@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Track Me</string>
+    <string name="api_key">AIzaSyAZa6fyUpS9YSB2CIix-3te5Nbl-Ncms1A</string>
+    <string name="location_txt">not available :(</string>
+    <string name="location_head">You are at :</string>
+    <string name="action_settings">Settings</string>
+    <string name="details_brief">Choose your settings.</string>
+    <string name="brief_text">Show my locality</string>
+    <string name="enable_text">Show</string>
+    <string name="location_head_last">You were at :</string>
+    <string name="location_txt_last">0 , 0</string>
+    <string name="my_places_txt">My Places</string>
+    <string name="on_txt">on</string>
+    <string name="error_date">no date available</string>
+    <string name="error_address">no address available</string>
+    <string name="track_text">Show tracking notification</string>
+</resources>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/background_light" >
+
+
+    <TextView
+        android:id="@+id/title_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="22.0dip"
+        android:textColor="@color/colorPrimary"
+        android:layout_marginTop="22.0dip"
+        android:textSize="28sp"
+        android:text="@string/action_settings"
+        android:textAppearance="?android:textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/details_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:layout_alignLeft="@+id/title_setting"
+        android:layout_below="@+id/title_setting"
+        android:textStyle="italic"
+        android:layout_marginTop="15.0dip"
+        android:text="@string/details_brief"
+        android:textAppearance="?android:textAppearanceMedium" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/details_settings"
+        android:layout_below="@+id/details_settings" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+
+            <TextView
+                android:id="@+id/panelZero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="26.0dip"
+                android:text="@string/brief_text"
+                android:textColor="@color/colorPrimary"
+                android:textAppearance="?android:textAppearanceMedium" />
+
+            <CheckBox
+                android:id="@+id/enableBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:checked="true"
+                android:layout_marginTop="10.0dip"
+                android:text="@string/enable_text" />
+
+            <TextView
+                android:id="@+id/panelOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16.0dip"
+                android:text="@string/track_text"
+                android:textColor="@color/colorPrimary"
+                android:textAppearance="?android:textAppearanceMedium" />
+
+            <CheckBox
+                android:id="@+id/enablenoti"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:checked="true"
+                android:layout_marginTop="10.0dip"
+                android:text="@string/enable_text" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
