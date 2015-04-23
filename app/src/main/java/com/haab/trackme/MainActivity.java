@@ -231,6 +231,7 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         if(screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE) {
             Toolbar appBar = (Toolbar) findViewById(R.id.tabBar);
             setSupportActionBar(appBar);
+            getSupportActionBar().setTitle("");
         }
     }
 

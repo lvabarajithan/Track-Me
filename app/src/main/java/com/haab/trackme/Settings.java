@@ -1,6 +1,7 @@
 package com.haab.trackme;
 
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationManagerCompat;
@@ -24,7 +25,10 @@ public class Settings extends ActionBarActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        getSupportActionBar().hide();
+        int screenSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+        if(screenSize != Configuration.SCREENLAYOUT_SIZE_LARGE) {
+            getSupportActionBar().hide();
+        }
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         manager= NotificationManagerCompat.from(this);
 

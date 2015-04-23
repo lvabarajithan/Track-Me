@@ -1,5 +1,6 @@
 package com.haab.trackme;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -25,10 +26,13 @@ public class MyPlaces extends ActionBarActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_myplaces);
-        getSupportActionBar().setTitle("My Places");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        setContentView(R.layout.activity_myplaces);int screenSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+        if(screenSize != Configuration.SCREENLAYOUT_SIZE_LARGE) {
+            getSupportActionBar().setTitle("My Places");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
         places = (RecyclerView) findViewById(R.id.places);
         my_places = new ArrayList<>();
         my_dates = new ArrayList<>();
