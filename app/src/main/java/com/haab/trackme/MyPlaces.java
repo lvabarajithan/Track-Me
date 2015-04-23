@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.haab.trackme.database.DatabaseAdapter;
@@ -26,12 +27,15 @@ public class MyPlaces extends ActionBarActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_myplaces);int screenSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-        if(screenSize != Configuration.SCREENLAYOUT_SIZE_LARGE) {
+        setContentView(R.layout.activity_myplaces);
+        int screenSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+        if(screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE) {
+            Toolbar bar = (Toolbar) findViewById(R.id.places_bar);
+            setSupportActionBar(bar);
+        }
             getSupportActionBar().setTitle("My Places");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
 
         places = (RecyclerView) findViewById(R.id.places);
         my_places = new ArrayList<>();

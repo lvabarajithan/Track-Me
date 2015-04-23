@@ -1,9 +1,11 @@
 package com.haab.trackme;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -24,9 +26,11 @@ public class DetailsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-        getSupportActionBar().setTitle("Details");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        int screenSize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+        if(screenSize == Configuration.SCREENLAYOUT_SIZE_LARGE) {
+            Toolbar bar = (Toolbar) findViewById(R.id.details_bar);
+            setSupportActionBar(bar);
+        }
         mLocation = (TextView) findViewById(R.id.loc_detail);
         mAddress = (TextView) findViewById(R.id.address_det);
         mDate = (TextView) findViewById(R.id.date_det);
