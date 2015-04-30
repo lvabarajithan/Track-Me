@@ -23,7 +23,9 @@
         <activity android:name=".Settings" />
         <activity android:name=".MyPlaces" />
         <activity android:name=".DetailsActivity" />
-
+        <provider
+            android:authorities="com.haab.trackme.Location"
+            android:name=".data.LocationProvider" />
     </application>
 
 </manifest>

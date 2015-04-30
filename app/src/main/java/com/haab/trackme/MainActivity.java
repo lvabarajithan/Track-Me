@@ -2,6 +2,7 @@ package com.haab.trackme;
 
 import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,7 +28,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.haab.trackme.database.DatabaseAdapter;
+import com.haab.trackme.data.LocationContract;
 import com.haab.trackme.utils.Tracker;
 
 import net.i2p.android.ext.floatingactionbutton.FloatingActionButton;
@@ -40,7 +41,6 @@ import java.util.List;
 
 public class MainActivity extends ActionBarActivity implements LocationListener {
 
-    private DatabaseAdapter mAdapter;
     private TextView mLocation,mAddress,lastLoc,lastAdd;
     private Button start_track,nav_here,share_btn;
     private SharedPreferences prefs;
@@ -74,7 +74,6 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mAdapter = new DatabaseAdapter(this);
         mLocation = (TextView) findViewById(R.id.location_txt);
         mAddress = (TextView) findViewById(R.id.address_txt);
         lastLoc = (TextView) findViewById(R.id.last_location);
@@ -457,10 +456,18 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         if(!mLocation.getText().toString().contentEquals(getResources().getString(R.string.location_txt)) &&
                 !mAddress.getText().toString().contentEquals(getResources().getString(R.string.location_txt))) {
             String mydate = DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-            long id = mAdapter.insertData(getLatitude(), getLongitude(), getAddressLine(),mydate);
+            //long id = mAdapter.insertData(getLatitude(), getLongitude(), getAddressLine(),mydate);
             /*if (id >= 0) {
                 Toast.makeText(this, "Data inserted", Toast.LENGTH_SHORT).show();
             }*/
+
+            ContentValues values = new ContentValues();
+            values.put(LocationContract.COLUMN_LATITUDE,getLatitude());
+            values.put(LocationContract.COLUMN_LONGITUDE,getLongitude());
+            values.put(LocationContract.COLUMN_ADDRESS,getAddressLine());
+            values.put(LocationContract.COLUMN_DATE,mydate);
+
+            Uri uri = getContentResolver().insert(LocationContract.CONTENT_URI,values);
         }
         //Toast.makeText(this,"Location Changed",Toast.LENGTH_SHORT).show();
     }

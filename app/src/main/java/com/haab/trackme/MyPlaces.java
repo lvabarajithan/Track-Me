@@ -1,6 +1,8 @@
 package com.haab.trackme;
 
 import android.content.res.Configuration;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -9,11 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.haab.trackme.database.DatabaseAdapter;
+import com.haab.trackme.data.LocationContract;
 import com.haab.trackme.utils.ListAdapter;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Created by abara on 3/29/2015.
@@ -21,9 +22,7 @@ import java.util.Collections;
 public class MyPlaces extends ActionBarActivity{
 
     private RecyclerView places;
-    private ArrayList<String> my_places,my_dates;
-    private DatabaseAdapter adapter;
-
+    String URL = LocationContract.URL;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,22 +37,12 @@ public class MyPlaces extends ActionBarActivity{
             getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         places = (RecyclerView) findViewById(R.id.places);
-        my_places = new ArrayList<>();
-        my_dates = new ArrayList<>();
-        adapter = new DatabaseAdapter(this);
 
         places.setHasFixedSize(false);
         places.setItemAnimator(new DefaultItemAnimator());
         places.setLayoutManager(new LinearLayoutManager(this));
 
-        my_places = adapter.getLocality();
-        my_dates = adapter.getDate();
-
-        Collections.reverse(my_places);
-        Collections.reverse(my_dates);
-
-        if(adapter.getLocality() != null && adapter.getDate() != null)
-            places.setAdapter(new ListAdapter(this,my_places,my_dates));
+        places.setAdapter(new ListAdapter(this,getLocality(),getDate(),getAddresses(),getLocation()));
     }
 
     @Override
@@ -67,4 +56,51 @@ public class MyPlaces extends ActionBarActivity{
 
         return super.onOptionsItemSelected(item);
     }
+
+    private ArrayList<String> getLocation(){
+        Uri location = Uri.parse(URL);
+        Cursor cursor = managedQuery(location,null,null,null,null);
+        ArrayList<String> mAllLocation = new ArrayList<>();
+        while(cursor.moveToNext()){
+            String latitude = cursor.getString(cursor.getColumnIndex(LocationContract.COLUMN_LATITUDE));
+            String longitude = cursor.getString(cursor.getColumnIndex(LocationContract.COLUMN_LONGITUDE));
+            mAllLocation.add(latitude + " , "+ longitude);
+        }
+        return mAllLocation;
+    }
+
+    private ArrayList<String> getAddresses(){
+        Uri location = Uri.parse(URL);
+        Cursor cursor = managedQuery(location, null, null, null, null);
+        ArrayList<String> addresses = new ArrayList<>();
+        while(cursor.moveToNext()){
+            String address = cursor.getString(cursor.getColumnIndex(LocationContract.COLUMN_ADDRESS));
+            addresses.add(address);
+        }
+        return addresses;
+    }
+    private ArrayList<String> getLocality(){
+        Uri location = Uri.parse(URL);
+        Cursor cursor = managedQuery(location, null, null, null, null);
+        ArrayList<String> locality = new ArrayList<>();
+        while(cursor.moveToNext()){
+            String address = cursor.getString(cursor.getColumnIndex(LocationContract.COLUMN_ADDRESS));
+            String loc = address.substring(0,address.indexOf(" "));
+            locality.add(loc);
+        }
+        return locality;
+    }
+
+
+    private ArrayList<String> getDate(){
+        Uri location = Uri.parse(URL);
+        Cursor cursor = managedQuery(location, null, null, null, null);
+        ArrayList<String> myDate = new ArrayList<>();
+        while(cursor.moveToNext()){
+            String date = cursor.getString(cursor.getColumnIndex(LocationContract.COLUMN_DATE));
+            myDate.add(date);
+        }
+        return myDate;
+    }
+
 }

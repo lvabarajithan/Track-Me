@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.haab.trackme.DetailsActivity;
 import com.haab.trackme.R;
-import com.haab.trackme.database.DatabaseAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,25 +22,24 @@ public class ListAdapter extends RecyclerView.Adapter<LocationHolder> {
 
     private Context mContext;
     private ArrayList<String> mLocality,mDate,mAddress,mLocation;
-    private DatabaseAdapter mAdapter;
 
-    public ListAdapter(Context context,ArrayList<String> locality,ArrayList<String> date){
+    public ListAdapter(Context context,ArrayList<String> locality,ArrayList<String> date,ArrayList<String> address,ArrayList<String> location){
         this.mContext = context;
-        this.mLocality = locality;
-        this.mDate=date;
-        mAdapter = new DatabaseAdapter(context);
-
+        mLocality = locality;
+        mDate = date;
+        mAddress = address;
+        mLocation = location;
     }
 
     @Override
     public LocationHolder onCreateViewHolder(ViewGroup viewGroup, final int pos) {
 
         View view = LayoutInflater.from(mContext).inflate(R.layout.simple_list,viewGroup,false);
-        mAddress = mAdapter.getAddresses();
-        mLocation= mAdapter.getLocation();
 
         Collections.reverse(mAddress);
         Collections.reverse(mLocation);
+        Collections.reverse(mLocality);
+        Collections.reverse(mDate);
 
         LocationHolder holder = new LocationHolder(view, new OnItemClickListener() {
             @Override

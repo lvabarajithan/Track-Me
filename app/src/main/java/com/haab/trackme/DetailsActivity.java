@@ -31,6 +31,11 @@ public class DetailsActivity extends ActionBarActivity {
             Toolbar bar = (Toolbar) findViewById(R.id.details_bar);
             setSupportActionBar(bar);
         }
+
+        getSupportActionBar().setTitle("Details");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         mLocation = (TextView) findViewById(R.id.loc_detail);
         mAddress = (TextView) findViewById(R.id.address_det);
         mDate = (TextView) findViewById(R.id.date_det);
