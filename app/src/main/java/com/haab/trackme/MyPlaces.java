@@ -4,6 +4,9 @@ import android.content.res.Configuration;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,10 +22,11 @@ import java.util.ArrayList;
 /**
  * Created by abara on 3/29/2015.
  */
-public class MyPlaces extends ActionBarActivity{
+public class MyPlaces extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private RecyclerView places;
     String URL = LocationContract.URL;
+    private static final int LOADER_ID=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +46,8 @@ public class MyPlaces extends ActionBarActivity{
         places.setItemAnimator(new DefaultItemAnimator());
         places.setLayoutManager(new LinearLayoutManager(this));
 
-        places.setAdapter(new ListAdapter(this,getLocality(),getDate(),getAddresses(),getLocation()));
+        getSupportLoaderManager().initLoader(LOADER_ID,null,this);
+        //places.setAdapter(new ListAdapter(this,getLocality(),getDate(),getAddresses(),getLocation()));
     }
 
     @Override
@@ -103,4 +108,20 @@ public class MyPlaces extends ActionBarActivity{
         return myDate;
     }
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(this,
+                LocationContract.CONTENT_URI,
+                null,null,null,null);
+    }
+
+    @Override
+    public void onLoadFinished(android.support.v4.content.Loader<Cursor> loader, Cursor data) {
+        places.setAdapter(new ListAdapter(this,getLocality(),getDate(),getAddresses(),getLocation()));
+    }
+
+    @Override
+    public void onLoaderReset(android.support.v4.content.Loader<Cursor> loader) {
+        places.setAdapter(new ListAdapter(this,getLocality(),getDate(),getAddresses(),getLocation()));
+    }
 }
