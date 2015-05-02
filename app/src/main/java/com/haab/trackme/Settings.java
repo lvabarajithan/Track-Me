@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -16,7 +15,6 @@ public class Settings extends ActionBarActivity{
 
     private SharedPreferences prefs;
     private CheckBox box,noti;
-    private NotificationManagerCompat manager;
 
     public static final String SHOW_KEY="show_address";
     public static final String SHOW_NOTIFICATION = "show_notification";
@@ -30,7 +28,6 @@ public class Settings extends ActionBarActivity{
             getSupportActionBar().hide();
         }
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        manager= NotificationManagerCompat.from(this);
 
         box = (CheckBox) findViewById(R.id.enableBox);
         noti = (CheckBox) findViewById(R.id.enablenoti);

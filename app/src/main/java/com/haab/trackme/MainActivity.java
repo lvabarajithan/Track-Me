@@ -18,8 +18,10 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,11 +48,12 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     private SharedPreferences prefs;
     private CardView lastCard,mainCard;
     private FloatingActionButton mFab;
+    private ShareActionProvider mShareActionProvider;
 
     private static NotificationManagerCompat manager ;
     private static NotificationCompat.Builder builder ;
     private static PendingIntent pendingIntent;
-    private static Intent intent;
+    private static Intent intent,mShare;
 
     private boolean isGPSEnabled = false;
     private boolean isNetworkEnabled = false;
@@ -93,6 +96,10 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
         pendingIntent = PendingIntent.getActivity(this, 0,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
         prefs= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        mShare = new Intent(Intent.ACTION_SEND);
+        mShare.setType("text/plain");
+        mShare.putExtra(Intent.EXTRA_TEXT, "Check out this cool app, Track Me!\n" +
+                "https://play.google.com/store/apps/details?id=com.haab.trackme");
 
         lastAdd.setText(prefs.getString(LAST_ADDRESS,"not available :("));
         lastLoc.setText(prefs.getString(LAST_LOCATION,"0 , 0"));
@@ -280,6 +287,13 @@ public class MainActivity extends ActionBarActivity implements LocationListener 
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        MenuItem item = menu.findItem(R.id.action_share);
+        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
+
+        if (mShareActionProvider != null) {
+            mShareActionProvider.setShareIntent(mShare);
+        }
         return true;
     }
 
